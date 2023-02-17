@@ -1,5 +1,4 @@
 from PySide6 import QtWidgets
-from PySide6.QtCore import QThread,Qt,Signal
 from design import Ui_MainWindow
 from PySide6.QtWidgets import QFileDialog
 from languageData import getKeyList
@@ -104,11 +103,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                             print(get_input_lang)
                             print(get_output_lang)
                             tran_text = getTranslateText(speech_text, get_input_lang, get_output_lang)
-                            start_vtt_time = getHourMinuteSecond(startTime)
-                            end_vtt_time = getHourMinuteSecond(endTime)
-                            video_name = os.path.splitext(os.path.basename(file_path))[0]
-                            vtt_file_path = os.path.join(folder_path, f"{video_name}.vtt")
-                            getWriteFile(vtt_file_path, tran_text, start_vtt_time, end_vtt_time)
+                            if tran_text:
+                                start_vtt_time = getHourMinuteSecond(startTime)
+                                end_vtt_time = getHourMinuteSecond(endTime)
+                                video_name = os.path.splitext(os.path.basename(file_path))[0]
+                                vtt_file_path = os.path.join(folder_path, f"{video_name}.vtt")
+                                getWriteFile(vtt_file_path, tran_text, start_vtt_time, end_vtt_time)
 
                         video.close()
 
